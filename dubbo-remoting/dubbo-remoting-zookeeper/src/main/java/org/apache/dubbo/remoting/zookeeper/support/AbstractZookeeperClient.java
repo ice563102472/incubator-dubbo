@@ -45,7 +45,9 @@ public abstract class AbstractZookeeperClient<TargetDataListener, TargetChildLis
     private final ConcurrentMap<String, ConcurrentMap<DataListener, TargetDataListener>> listeners = new ConcurrentHashMap<String, ConcurrentMap<DataListener, TargetDataListener>>();
 
     private volatile boolean closed = false;
-
+    /**
+     * TODO:不知道作用
+     */
     private final Set<String>  persistentExistNodePath = new ConcurrentHashSet<>();
 
     public AbstractZookeeperClient(URL url) {
@@ -170,6 +172,7 @@ public abstract class AbstractZookeeperClient<TargetDataListener, TargetChildLis
         if (closed) {
             return;
         }
+        //TODO:closed这个变量可能没有用....
         closed = true;
         try {
             doClose();
