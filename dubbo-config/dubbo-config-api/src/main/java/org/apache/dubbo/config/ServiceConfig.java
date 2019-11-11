@@ -367,15 +367,27 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
     }
 
     public synchronized void export() {
+        /**
+         * TODO:检查
+         */
         checkAndUpdateSubConfigs();
 
+        /**
+         * 判断是否应该暴露
+         */
         if (!shouldExport()) {
             return;
         }
 
+        /**
+         * 判断是否延迟暴露
+         */
         if (shouldDelay()) {
             DELAY_EXPORT_EXECUTOR.schedule(this::doExport, getDelay(), TimeUnit.MILLISECONDS);
         } else {
+            /**
+             * 直接暴露
+             */
             doExport();
         }
     }
@@ -450,6 +462,9 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private void doExportUrls() {
+        /**
+         * 从配置中加载注册中心地址,要考虑配置的优先级
+         */
         List<URL> registryURLs = loadRegistries(true);
         for (ProtocolConfig protocolConfig : protocols) {
             String pathKey = URL.buildKey(getContextPath(protocolConfig).map(p -> p + "/" + path).orElse(path), group, version);

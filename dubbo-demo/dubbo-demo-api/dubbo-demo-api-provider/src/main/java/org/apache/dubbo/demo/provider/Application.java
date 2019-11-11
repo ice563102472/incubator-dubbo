@@ -27,7 +27,7 @@ public class Application {
     public static void main(String[] args) throws Exception {
         ServiceConfig<DemoServiceImpl> service = new ServiceConfig<>();
         service.setApplication(new ApplicationConfig("dubbo-demo-api-provider"));
-        service.setRegistry(new RegistryConfig("zookeeper://127.0.0.1:2181"));
+        service.setRegistry(new RegistryConfig("zookeeper://10.179.160.109:2181"));
         service.setInterface(DemoService.class);
         service.setRef(new DemoServiceImpl());
         service.export();
