@@ -82,6 +82,7 @@ public class NetUtils {
         if (port <= 0) {
             return getAvailablePort();
         }
+        //TODO:是否有并发问题
         for (int i = port; i < MAX_PORT; i++) {
             try (ServerSocket ss = new ServerSocket(i)) {
                 return i;
